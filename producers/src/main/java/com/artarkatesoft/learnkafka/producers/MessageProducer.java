@@ -38,12 +38,10 @@ public class MessageProducer {
         Future<RecordMetadata> future = kafkaProducer.send(record);
         try {
             RecordMetadata recordMetadata = future.get();
-            log.info("Record metadata is {}", recordMetadata);
-            log.info("partition: {}, offset: {}", recordMetadata.partition(), recordMetadata.offset());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+            log.info("Message `{}` sent successfully for the key `{}`", value, key);
+            log.info("Published Message Offset is {} and the partition is {}", recordMetadata.offset(), recordMetadata.partition());
+        } catch (InterruptedException | ExecutionException e) {
+            log.error("Exception in publishMessageSync : {}", e.getMessage());
         }
     }
 
