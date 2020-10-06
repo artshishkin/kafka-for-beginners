@@ -56,11 +56,13 @@ public class MessageProducer {
 
     public static void main(String[] args) throws InterruptedException {
         MessageProducer messageProducer = new MessageProducer(propsMap());
-        messageProducer.publishMessageSync(null, "First message from code");
+        messageProducer.publishMessageSync("1", "These messages");
+        messageProducer.publishMessageSync("1", "must be in the same partitions");
+        messageProducer.publishMessageSync("1", "And order is guarantee to be the same");
 
-        Future<RecordMetadata> asynchronousMessageFromCode = messageProducer.publishMessageAsync(null, "Asynchronous message from code");
-        while (!asynchronousMessageFromCode.isDone());
-        Thread.sleep(100);
+//        Future<RecordMetadata> asynchronousMessageFromCode = messageProducer.publishMessageAsync(null, "Asynchronous message from code");
+//        while (!asynchronousMessageFromCode.isDone());
+//        Thread.sleep(100);
     }
 
 }
