@@ -4,3 +4,7 @@
 
 ##### 09 - Set Up Zookeeper/Kafka Broker in Local 
 
+##### 16 - Setting Up Kafka Cluster in Local with 3 Kafka brokers
+ 
+
+
