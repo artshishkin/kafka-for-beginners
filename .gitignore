@@ -1,0 +1,14 @@
+# Project exclude paths
+/target/
+/.idea/
+/*.iml
+/*.log
+/data/output/
+/data/output2/
+/data/output_reserve/
+/data/output_direct/
+/data/output_process/
+.idea/
+/data/csv/output/
+/data/fixedlength/output/
+**/output/
