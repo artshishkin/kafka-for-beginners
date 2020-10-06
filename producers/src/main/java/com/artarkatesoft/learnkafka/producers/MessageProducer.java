@@ -1,9 +1,6 @@
 package com.artarkatesoft.learnkafka.producers;
 
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,9 +42,25 @@ public class MessageProducer {
         }
     }
 
-    public static void main(String[] args) {
+    public Future<RecordMetadata> publishMessageAsync(String key, String value) {
+        ProducerRecord<String, String> record = new ProducerRecord<>(topicName, key, value);
+        return kafkaProducer.send(record, asyncPublishCallback);
+    }
+
+    private Callback asyncPublishCallback = (recordMetadata, exception) -> {
+        if (exception == null)
+            log.info("Published Message Offset is {} and the partition is {}", recordMetadata.offset(), recordMetadata.partition());
+        else
+            log.error("Exception in publishMessageAsync : {}", exception.getMessage());
+    };
+
+    public static void main(String[] args) throws InterruptedException {
         MessageProducer messageProducer = new MessageProducer(propsMap());
         messageProducer.publishMessageSync(null, "First message from code");
+
+        Future<RecordMetadata> asynchronousMessageFromCode = messageProducer.publishMessageAsync(null, "Asynchronous message from code");
+        while (!asynchronousMessageFromCode.isDone());
+        Thread.sleep(100);
     }
 
 }
