@@ -22,7 +22,7 @@ public class MessageProducer {
         kafkaProducer = new KafkaProducer<>(propsMap);
     }
 
-    static Map<String, Object> propsMap() {
+    public static Map<String, Object> propsMap() {
         Map<String, Object> props = new HashMap<>();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
@@ -65,4 +65,7 @@ public class MessageProducer {
 //        Thread.sleep(100);
     }
 
+    public void close() {
+        kafkaProducer.close();
+    }
 }
