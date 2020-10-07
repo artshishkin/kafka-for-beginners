@@ -29,7 +29,8 @@ public class MessageConsumer {
         properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
-        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "message_consumer");
+        properties.put(ConsumerConfig.GROUP_ID_CONFIG, "message_consumer2");
+        properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 
         return properties;
     }
