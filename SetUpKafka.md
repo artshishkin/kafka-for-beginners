@@ -281,7 +281,13 @@ kafka-topics.bat --zookeeper localhost:2181 --describe --topic <topic-name>
 ```
 kafka-topics.bat --alter --zookeeper localhost:2181 --topic library-events --config min.insync.replicas=2
 ```
-
+But this is **DEPRECATED**
+```log
+D:\Art\kafka\bin\windows>kafka-topics.bat --alter --zookeeper localhost:2181 --topic test-topic-replicated --config min.insync.replicas=2
+WARNING: Altering topic configuration from this script has been deprecated and may be removed in future releases.
+         Going forward, please use kafka-configs.sh for this functionality
+Updated config for topic test-topic-replicated.
+```
 
 ## Delete a topic
 
