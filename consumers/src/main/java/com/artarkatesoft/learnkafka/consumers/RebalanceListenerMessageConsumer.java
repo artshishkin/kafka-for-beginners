@@ -32,7 +32,7 @@ public class RebalanceListenerMessageConsumer {
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "message_consumer2");
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        properties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 10000);
+        properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false);
 
 
         return properties;
@@ -40,7 +40,7 @@ public class RebalanceListenerMessageConsumer {
 
     public void pollKafka() {
 
-        kafkaConsumer.subscribe(List.of(topicName), new MessageRebalanceListener());
+        kafkaConsumer.subscribe(List.of(topicName), new MessageRebalanceListener(kafkaConsumer));
 
         try {
             log.info("Polling topic: {}", topicName);
@@ -49,6 +49,11 @@ public class RebalanceListenerMessageConsumer {
                 consumerRecords.forEach(record ->
                         log.info("Record key: {}, value: {}, partition: {}, offset: {}",
                                 record.key(), record.value(), record.partition(), record.offset()));
+
+                if (!consumerRecords.isEmpty()) {
+                    log.info("Commit sync of count {}", consumerRecords.count());
+                    kafkaConsumer.commitSync();
+                }
             }
         } catch (Exception e) {
             log.error("Exception while poling broker: {}", e.getMessage());
