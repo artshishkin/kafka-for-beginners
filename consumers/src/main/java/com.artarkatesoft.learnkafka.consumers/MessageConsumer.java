@@ -31,7 +31,8 @@ public class MessageConsumer {
         properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
         properties.put(ConsumerConfig.GROUP_ID_CONFIG, "message_consumer2");
         properties.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-        properties.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 5000);
+//        properties.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 5000);
+        properties.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, 10000);
 
 
         return properties;
@@ -45,7 +46,7 @@ public class MessageConsumer {
             log.info("Polling topic: {}", topicName);
             while (true) {
                 ConsumerRecords<String, String> consumerRecords = kafkaConsumer.poll(Duration.ofMillis(100));
-                Thread.sleep(6000);
+//                Thread.sleep(6000);
                 consumerRecords.forEach(record ->
                         log.info("Record key: {}, value: {}, partition: {}, offset: {}",
                                 record.key(), record.value(), record.partition(), record.offset()));
