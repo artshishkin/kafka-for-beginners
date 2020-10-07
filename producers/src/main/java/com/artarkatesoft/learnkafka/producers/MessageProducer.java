@@ -28,6 +28,8 @@ public class MessageProducer {
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         props.put(ProducerConfig.ACKS_CONFIG, "all");
+        props.put(ProducerConfig.RETRIES_CONFIG, 10);
+        props.put(ProducerConfig.RETRY_BACKOFF_MS_CONFIG, 2000);
         return props;
     }
 
