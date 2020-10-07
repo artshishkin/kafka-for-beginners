@@ -11,6 +11,7 @@
     <description>Tutorial on Kafka for Beginners - Dilip S</description>
     <modules>
         <module>producers</module>
+        <module>consumers</module>
     </modules>
 
     <properties>
