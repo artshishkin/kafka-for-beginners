@@ -28,5 +28,7 @@ public class MessageRebalanceListener implements ConsumerRebalanceListener {
     @Override
     public void onPartitionsAssigned(Collection<TopicPartition> partitions) {
         log.info("onPartitionsAssigned: {}", partitions);
+//        kafkaConsumer.seekToBeginning(partitions);
+        kafkaConsumer.seekToEnd(partitions);
     }
 }
