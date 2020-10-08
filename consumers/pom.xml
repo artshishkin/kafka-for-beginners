@@ -11,5 +11,12 @@
 
     <artifactId>consumers</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.artarkatesoft.learnkafka</groupId>
+            <artifactId>data</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -12,6 +12,7 @@
     <modules>
         <module>producers</module>
         <module>consumers</module>
+        <module>data</module>
     </modules>
 
     <properties>
